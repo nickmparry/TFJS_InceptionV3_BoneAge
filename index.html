@@ -10,39 +10,739 @@
 
 
 <body>
-    <h1>Tensorflow Bone Age Predictor</h1>
-    <p id="status">The algorithm is loading...</p>
+    <h1>Paediatric Bone Age Predictor - AI Assistant</h1>
+    <p>
+    <div id="status", class="loadspace">The algorithm is loading, please wait...</div>
+    <div id="loaded",    class="hide">Please enter data and upload image</div>
+    </p>
 
-    <h2>File Upload & Image Preview</h2>
-
-    <!-- UPLOAD -->
+<!-- INPUT DATA FORM -->
+<section id='section1' class="container_input">
+    <div id="sec1" class="hide">
     <form id="file-upload-form" class="uploader">
-        <input id="file-upload" type="file" name="fileUpload" accept="image/*" />
+        <!--GENDER SELECTION PORTION-->
+        <span id="gender-select" class="genlabel">
+            <label class ="genlabel" for="gender">Gender:</label>
+            <input class="gen2" type="radio" name="genderbut" value="male" checked> Male
+            <input class="gen2" type="radio" name="genderbut" value="female"> Female<br>
+        </span>
 
-        <label for="file-upload" id="file-drag">
+        <!--DOB SELECTION PORTION-->
+        <span id="dob-select" class ='dob-text'>
+            <label class="genlabel" for="birthday">Date of birth: </label>
+            <input class="gen2" type="date" id="birthday" name="birthday" required>
+        </span>
+
+        
+        <!--FILE UPLOAD SECTION-->
+    <h2 id="uploadingsec">File Upload & Image Preview</h2>
+        <input id="file-upload" type="file" name="fileUpload" accept="image/*"/>
+        <label class="uploaderlabel" for="file-upload" id="file-drag">
             <img id="file-image" src="#" alt="Preview" class="hidden">
             <div id="start">
                 <i class="fa fa-download" aria-hidden="true"></i>
-                <div class="selectdrag">Select a file or drag here</div>
+            <div class="selectdrag">Please select an image</div>
                 <div id="notimage" class="hidden">Please select an image</div>
                 <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
             </div>
             <div id="response" class="hidden">
-                <div id="messages"></div>
+                <div id="messages", class="messages"></div>
                 <progress class="progress" id="file-progress" value="0">
                     <span>0</span>%
                 </progress>
             </div>
         </label>
     </form>
+    </div>
+</section>
 
+
+<!--RESULTS SECTION-->
+<section id="section2" class="container_output">
+    <h1>Results:</h1>
+    <div class="flex-container">
+        <div class="flex-childl">
+            <!--The report output box-->
+            <div id="reportbox" contenteditable="true">
+                REPORT TEMPLATE:
+                <br>
+                <br>
+                Sex: <span id="genderrep"></span>
+                <br>
+                Date of Birth: <span id="dobrep"></span>
+                <br>
+                Chronological age: <span id="agerepyr"></span> years <span id="agerepmo"></span> months
+                <br>
+                <!--<br>
+                At the chronological age of 
+                <br>-->
+                <br>
+                By the method of Greulich and Pyle, the bone age is estimated to be <span id="gpRepAge1"></span>
+                <br>
+                <br>
+                IMPRESSION:
+                <br>
+                Chronlogical Age: <span id="agerepyr2"></span> years <span id="agerepmo2"></span> months.
+                <br>
+                Estimated Bone Age: <span id="gpRepAge2">0</span>
+            </div>
+        </div>
+            <div class="flex-childr"> <div class="slider">
+                <!--Male Slides-->
+                <div id="divBoy" class="slide-Showing">
+                    <div class="slidem"> <!--O months old-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 0 months</h2><br>
+                            Phalanges: The distal ends of the proximal and middle phalanges are rounded and their proximal ends are wider and flat.<br><br>
+                            Metacarpals: The shafts of the 2nd-5th metacarpals are slightly constricted near middle portions. The proximal ends of the metacarpals are somewhat closer together than their distal ends and, consequently, the shafts appear to radiate out from the carpal area. At birth, the metacarpals of premature infants are usually more parallel to each other.<br><br>                        
+                            Carpals: No ossification centers seen.
+                        </div> 
+                        <img src="/reference_images/male/0.png" alt="">
+                    </div>
+                    <div class="slidem"> <!--3 months old-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 3 months</h2><br>
+                            Phalanges: The phalanges have increased relatively more in length than in breadth and are beginning to show individual differentiation.                        <br><br>
+                            Metacarpals: The central portions of the 2nd-5th metacarpals are more constricted.
+                            The proximal ends of the 2nd and 5th metacarpals tend to be more rounded.
+                            The proximal margin (future epiphyseal margin) of the 1st metacarpal is now distinctly flattened<br><br>
+                            Carpals: Ossification centers in the capitate and hamate are now visible. <br><br>
+                            Radius/Ulna: A beak-like projection on the radial side of the distal end of the ulna usually persists for several years.
+                            The flaring of the distal ends of the radius and ulna is slightly more pronounced.
+                        </div>
+                        <img src="/reference_images/male/3.png" alt="">
+                    </div>
+                    <div class="slidem"> <!--6 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 6 months</h2><br><br>
+                            Metacarpals: There are now distinct individual differences in the shape and dimensions of the metacarpal shafts.<br><br>
+                            Carpals: Capitate and hamate ossification centers have increased in size and are closer together.
+                            The future long axis of the capitate is already established.<br><br>
+                            Radius/Ulna: The flaring of the distal ends of the radius and ulna is quite pronounced. <br><br>
+                        </div>
+                        <img src="/reference_images/male/6.png" alt="">
+                    </div>
+                    <div class="slidem"> <!--9 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 9 months</h2><br><br>
+                        Metacarpals: The distal 1st metacarpal and bases of the 2nd-5th metacarpals have become relatively larger and more rounded. <br><br>
+                        Carpals: The surface of the capitate adjacent to the hamate has begun to flatten.<br><br>
+                    </div>
+                    <img src="/reference_images/male/9.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 12months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 12 months</h2><br><br>
+                            Phalanges: The proximal phalanges have grown somewhat more in length than width and the distal tips of the 3rd and 4th appear to be slightly compressed laterally.<br><br>
+                            Carpals: Some further flattening has occurred in the hamate surface of the capitate.<br><br>
+                        </div>
+                        <img src="/reference_images/male/12.png" alt="">
+                        </div>
+                    <div class="slidem"> <!-- 15 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 15 months</h2><br><br>
+                                Phalanges: The sides of the distal ends of the 3rd and 4th proximal phalanges are now somewhat flattened. The trochlear surface of each phalanx will form later between and immediately distal to those flattened areas. <br><br>
+                                Metacarpals: That portion of the base of the 2nd metacarpal which will later articulate with the capitate has begun to flatten. <br><br>
+                                Carpals: The flattening of the hamate surface of the capitate is now more pronounced, and the adjacent surface of the hamate has become somewhat less convex.<br><br>
+                                Radius/Ulna: A small ossification center is visible in the distal radial epiphysis.<br><br>
+                    </div>
+                    <img src="/reference_images/male/15.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 18 months-->
+                        <div class ="carousel-item__info">
+                        <h2>Bone Age: 18 months</h2><br><br>
+                        Phalanges & Metacarpals:Ossification centers are now visible in the 2nd-5th metacarpal heads and proximal phalanges, and in the distal phalanx of the thumb.
+                        Ossification in these epiphyses usually appears first centrally and subsequently extends transversely.
+                        These metacarpal epiphyses, especially that of the 4th metacarpal, are slightly advanced in their development. <br><br>
+                        Radius/Ulna: The ulnar side of the radial epiphysis is pointed and its radial side is thicker and convex.<br><br>
+                        </div>
+                        <img src="/reference_images/male/18.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 24 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 2 Years 0 Months</h2><br><br>
+                        Phalanges:Ossification has now begun in the epiphysis of the 5th proximal phalanx, and 3rd and 4th middle and distal phalanges. <br>
+                        The epiphyses of the 2nd-5th proximal phalanges are now disc-shaped and their margins are smooth.
+                        <br><br>
+                    </div>
+                    <img src="/reference_images/male/24.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 32 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 2 years 8 months</h2><br><br>
+                        Phalanges:The widths of the epiphyses of the 2nd-5th proximal phalanges now equals or exceeds half the width of the adjacent margins of their shafts.
+                        The epiphysis of the distal phalanx of the thumb has flattened to conform to the shape of the adjacent surface of its shaft. <br><br>
+                        Metacarpals: Ossification centers are now visible in the proximal phalanx of the thumb, 2nd middle phalanx, 2nd and 5th distal phalanges, and 1st metacarpal.<br><br>
+                    </div>
+                    <img src="/reference_images/male/32.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 36 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 3 years</h2><br><br>
+                        Phalanges: The epiphyses of the 2nd-4th middle phalanges have widened transversely to form disc-like structures which are thickest in the middle and taper toward each end. Their margins are smooth.<br><br>
+                        Metacarpals: The epiphyses of the 2nd-5th metacarpals have enlarged and have become more uniformly rounded and their margins somewhat smoother. <br><br>
+                        Radius/Ulna: The volar and dorsal surfaces of the radial epiphysis can now be distinguished. The volar margin is visible as a rather thick white line. Distally the thin dorsal margin of the epiphysis projects beyond the volar margin.<br><br>
+                    </div>
+                    <img src="/reference_images/male/36.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 42 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 3 years 6 months</h2><br><br>
+                        Phalanges: The epiphyses of the 2nd and 5th distal phalanges are now clearly visible.
+                        The corresponding epiphyses of the 3rd and 4th fingers are now disc-shaped and their margins are smooth.<br><br>
+                        Metacarpals: The surface of the base of the 2nd metacarpal, which will later articulate with the trapezoid, has begun to flatten.
+                        The trapezoid facet makes a wide angle with the smaller capitate facet, which forms the remainder of the proximal border of the shaft.<br><br>
+                        Carpals: The lunate is much advanced in its development as compared with the other bones.<br><br>
+                    </div>
+                    <img src="/reference_images/male/42.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 48 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 4 years</h2><br><br>
+                        Phalanges: Ossification centers are now present in all of the phalangeal epiphyses.
+                        The epiphyses of the 2nd and 3rd proximal phalanges are now somewhat wedge-shaped, tapering toward their ulnar ends.<br><br>
+                    </div>
+                    <img src="/reference_images/male/48.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 54 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 4 years 6 months</h2><br><br>
+                        Phalanges: The articular surfaces of the 2nd and 3rd proximal phalangeal epiphyses have become slightly concave as they begin to shape to the heads of the corresponding metacarpals.
+                        The proximal phalanx of the thumb has an epiphysis which has not yet completely coalesced to form a single nodule. <br><br>
+                        Metacarpals: The epiphyses of the 2nd-4th metacarpals now show a comparatively flattened ulnar side and a more rounded distal margin.<br><br>
+                        Carpals: The ossification center of the trapezium is now a small, rounded nodule with fairly smooth margins.<br><br>
+                        Radius/Ulna: The distal margin of the ulnar tip of the radial epiphysis, which will subsequently articulate with the lunate, has flattened slightly.<br><br>
+                    </div>
+                    <img src="/reference_images/male/54.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 60 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 5 years</h2><br><br>
+                        Phalanges: The articular surfaces of the 2nd and 3rd proximal phalangeal epiphyses have become slightly concave as they begin to shape to the heads of the corresponding metacarpals.
+                        The proximal phalanx of the thumb has an epiphysis which has not yet completely coalesced to form a single nodule.
+                        <br><br>
+                        Metacarpals: The epiphyses of the 2nd-4th metacarpals now show a comparatively flattened ulnar side and a more rounded distal margin.<br><br>
+                        Carpals: The ossification center of the trapezium is now a small, rounded nodule with fairly smooth margins.<br><br>
+                        Radius/Ulna: The distal margin of the ulnar tip of the radial epiphysis, which will subsequently articulate with the lunate, has flattened slightly.<br><br>
+                    </div>
+                    <img src="/reference_images/male/60.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 72 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 6 years</h2><br><br>
+                        Phalanges: The epiphyses of the proximal phalanges are not yet as wide as the adjacent borders of their shafts.
+                        The future articular surfaces of the proximal epiphyses of the 4th and 5th fingers are now slightly concave.<br><br>
+                        Metacarpals: The base of the 2nd metacarpal is now distinctly indented in the region which will later articulate with the trapezoid.<br><br>
+                        Carpals: The margins of the capitate and hamate now show beginning regional differentiation.
+                        The surface of the trapezium adjacent to the epiphysis of the 1st metacarpal has begun to flatten.
+                        The triquetrum has become more elongated, its ulnar margin somewhat less convex, and its hamate and lunate margins further flattened.<br><br>
+                        Radius/Ulna: The part of the radial epiphysis from which the styloid process develops is beginning to enlarge.<br><br>
+                    </div>
+                    <img src="/reference_images/male/72.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 84 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 7 years</h2><br><br>
+                        Metacarpals: The proximal margin of the epiphysis of the 1st metacarpal is distinctly flattened.<br><br>
+                        Carpals: The hamate surface of the capitate is now slightly concave, and the adjacent surface of the hamate has a corresponding convexity.
+                        The metacarpal margin of the hamate is now distinctly flattened.<br><br>
+                        Radius/Ulna: The proximal surface of the ulnar epiphysis appears flattened.<br><br>
+                    </div>
+                    <img src="/reference_images/male/84.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 96 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 8 years</h2><br><br>
+                        Phalanges: The epiphyses of the 2nd-5th distal phalanges are now as wide as their shafts.
+                        All middle phalangeal epiphyses and the epiphyses of the 2nd and 3rd distal phalanges have shaped further to the contours of the trochlear surfaces of the phalanges with which they articulate. <br><br>
+                        Metacarpals: The concavity in the base of the 2nd metacarpal adjacent to the trapezoid has become more pronounced. The ulnar portion of the base has begun to extend toward the capitate, with which it will later articulate.<br><br>
+                    </div>
+                    <img src="/reference_images/male/96.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 108 months-->
+                        <div class ="carousel-item__info">
+                        <h2>Bone Age: 9 years</h2><br><br>
+                        Phalanges: The distal ends of the shafts of the 2nd and 3rd proximal phalanges have become slightly concave as their trochlear surfaces begin to differentiate.<br><br>
+                        Carpals: A process of the trapezium is beginning to project from its distal surface toward the base of the 2nd metacarpal.
+                        The two metacarpal articular surfaces of the capitate are beginning to differentiate.
+                        That portion of the distal margin of the hamate which will later articulate with the base of the 5th metacarpal can now be seen as a small but distinct projection.<br><br>
+                        Radius/Ulna: The epiphysis of the ulna has widened and thickened to form a bony plate. Its styloid process is beginning to appear.<br><br>
+                        </div>
+                    <img src="/reference_images/male/108.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 120 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 10 years</h2><br><br>
+                        Phalanges: The more proximal part of the articular surface of the distal phalanx of the thumb is now slightly concave.
+                        The epiphyses of the 2nd-5th distal phalanges are all wider than their shafts.
+                        The epiphyses of the middle phalanges have thickened central portions, angular proximal surfaces, and relatively flattened distal margins.
+                        The epiphyses of the 2nd-5th proximal phalanges are not yet as wide as their shafts.<br><br>
+                        Metacarpals: The epiphysis of the 1st metacarpal has a slight indentation on its future articular surface.<br><br>
+                        Carpals: A slight indentation has appeared in the distal surface of the trapezium in the area of its future articulation with the 1st metacarpal. Its scaphoid surface has begun to flatten.
+                        The pisiform sesamoid appears.<br><br>
+                    </div>
+                    <img src="/reference_images/male/120.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 132 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 11 years</h2><br><br>
+                        Phalanges: The epiphysis of the 2nd proximal phalanx is now as wide as its shaft.
+                        The epiphyses of the 2nd-5th distal phalanges are beginning to conform in shape to that of the trochlear surfaces of their respective middle phalanges.
+                        The epiphysis of the proximal phalanx of the thumb now extends farther medially than does the corresponding border of its shaft.<br><br>
+                        Carpals: The articular facets of the distal row of carpals, particularly those of the capitate, have become progressively more sharply delimited.
+                        The volar and dorsal margins of the surface of the hamate which will articulate with the 4th metacarpal can now be seen.
+                        The distal tip of the hamulus of the hamate is just becoming discernible.
+                        The distal margin of the scaphoid is now somewhat flattened and its capitate articular surface distinctly concave.
+                        The future scaphoid and radial articular surfaces of the lunate now are beginning to be defined.
+                        The pisiform is now more distinct than in the preceding standard, its shadow being visible through and between the hamate and triquetrum.<br><br>
+                    </div>
+                    <img src="/reference_images/male/132.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 138 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 11 years 6 months</h2><br><br>
+                        Phalanges: The epiphysis of the 2nd proximal phalanx is now as wide as its shaft.
+                        The epiphyses of the 2nd-5th distal phalanges are beginning to conform in shape to that of the trochlear surfaces of their respective middle phalanges.
+                        The epiphysis of the proximal phalanx of the thumb now extends farther medially than does the corresponding border of its shaft.<br><br>
+                        Carpals: The articular facets of the distal row of carpals, particularly those of the capitate, have become progressively more sharply delimited.
+                        The volar and dorsal margins of the surface of the hamate which will articulate with the 4th metacarpal can now be seen.
+                        The distal tip of the hamulus of the hamate is just becoming discernible.
+                        The distal margin of the scaphoid is now somewhat flattened and its capitate articular surface distinctly concave.
+                        The future scaphoid and radial articular surfaces of the lunate now are beginning to be defined.
+                        The pisiform is now more distinct than in the preceding standard, its shadow being visible through and between the hamate and triquetrum.
+                    </div>
+                    <img src="/reference_images/male/138.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 150 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 12 years 6 months</h2><br><br>
+                        Phalanges: The epiphyses of the 3rd-5th proximal phalanges are now as wide as their shafts.<br><br>
+                        Carpals: The articular surface differentiation has progressed farther in the distal than proximal row of carpals, and is most marked in the carpal-metacarpal area.<br><br>
+                    </div>
+                    <img src="/reference_images/male/150.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 156 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 13 years</h2><br><br>
+                        Phalanges: The epiphysis of the 5th middle phalanx is now as wide as its shaft.
+                        The tips of the epiphyses of the 2nd-5th distal phalanges are bent slightly distally and the distal ends of the corresponding middle phalanges are now slightly concave.<br><br>
+                        Metacarpals: The epiphyses of the 2nd-5th metacarpals are now as wide as the adjacent margins of their shafts.
+                        The radial epiphysis is now as wide as the adjacent margin of its shaft.
+                        The adductor pollicis sesamoid is now visible, just medial to the head of the 1st metacarpal.<br><br>
+                    </div>
+                    <img src="/reference_images/male/156.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 162 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 13 years 6 months</h2><br><br>
+                        Phalanges: All of the proximal epiphyses have begun to cap their shafts. The process has advanced farthest in the thumb and in the 3rd-5th fingers, and moreso on the radial sides.<br><br>
+                        Metacarpals: The epiphyses of all of the metacarpals are now clearly as wide as their shafts, and these adjacent margins conform closely in shape.
+                        <br><br>
+                        Carpals: The distal end of the scaphoid flattens further and increases in size.
+                        The complete outline of the hamulus of the hamate can now be seen distinctly.
+                        The surface of the trapezium which articulates with the 1st metacarpal has become more concave, and the proximal borders of its dorsal and volar surfaces are now readily distinguishable.
+                        The articular surfaces of the trapezoid are now well-differentiated.<br><br>
+                        Radius/Ulna: The ulnar articular surface of the radius is now flattened.
+                        Reciprocal shaping is under way in the radioulnar joint.<br><br>
+                    </div>
+                    <img src="/reference_images/male/162.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 168 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 14 years</h2><br><br>
+                        Phalanges: The sides of the epiphyses of the 2nd-5th metacarpals are now aligned closely with the sides of their shafts.
+                        The epiphyses of all phalanges of the 2nd-5th fingers have now begun to cap their shafts.<br><br>
+                        Epiphyseal fusion tends to occur in an orderly fashion:
+                        <ol>
+                            <li>Distal phalanges (farthest advanced in the thumb and 3rd finger)</li>
+                            <li>Metacarpals </li>
+                            <li>Proximal phalanges</li>
+                            <li>Middle phalanges</li>
+                        </ol>
+                    </div>
+                    <img src="/reference_images/male/168.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 180 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 15 years</h2><br><br>
+                        Carpals: All carpals have now attained their early adult shape.<br><br>
+                        Radius/Ulna: The epiphysis of the radius has capped its shaft.The epiphysis of the ulna is now as wide as its shaft and follows its contour closely.<br><br>
+                    </div>
+                    <img src="/reference_images/male/180.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 186 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 15 years 6 months</h2><br><br>
+                        Carpals: All carpals have now attained their early adult shape.<br><br>
+                        Radius/Ulna: The epiphysis of the radius has capped its shaft.The epiphysis of the ulna is now as wide as its shaft and follows its contour closely.
+                        <br><br>
+                    </div>
+                    <img src="/reference_images/male/186.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 192 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 16 years</h2><br><br>
+                        Phalanges: Epiphyseal-diaphyseal fusion is well advanced in all the proximal phalanges and in the middle phalanges of the 2nd and 5th fingers.
+                        Accessory sesamoids are usually visible radiographically at this stage.<br><br>
+                        Metacarpals: The epiphyses of the 2nd-5th metacarpals have begun to fuse with their shafts.<br><br>
+                    </div>
+                    <img src="/reference_images/male/192.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 204 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 17 years</h2><br><br>
+                        Phalanges: All of the phalangeal epiphyses have now fused with their shafts.<br><br>
+                        Metacarpals: The epiphyses of the 2nd-5th metacarpals have recently fused with their shafts.<br><br>
+                        Radius/Ulna: Fusion has begun in the ulna.<br><br>
+                    </div>
+                    <img src="/reference_images/male/204.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 216 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 18 years</h2><br><br>
+                        All the epiphyses except that of the radius have fused with their shafts.
+                    </div>
+                    <img src="/reference_images/male/216.png" alt="">
+                    </div>
+                    <div class="slidem"> <!-- 228 months-->
+                    <div class ="carousel-item__info">
+                        <h2>Bone Age: 19 years</h2><br><br>
+                        The radial epiphysis has now fused with its shaft, completing the skeletal maturation of the hand and wrist.
+                    </div>
+                    <img src="/reference_images/male/228.png" alt="">
+                    </div>
+                </div>
+
+                <!--Female Slides-->
+                <div id="divGirl" class ="slide-Hidden">
+                    <div class="slideg"> <!-- 0 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 0 months</h2><br><br>
+                            Phalanges: The distal ends of the proximal and middle phalanges are rounded and their proximal ends are wider and flat.<br><br>
+                            Metacarpals: The shafts of the 2nd-5th metacarpals are slightly constricted near middle portions.
+                            The proximal ends of the metacarpals are somewhat closer together than their distal ends and, consequently, the shafts appear to radiate out from the carpal area. At birth, the metacarpals of premature infants are usually more parallel to each other.<br><br>
+                            Carpals: No ossification centers seen.<br><br>
+                        </div>
+                        <img src="/reference_images/female/0.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 3 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 3 months</h2><br><br>
+                            Phalanges: The phalanges have increased relatively more in length than in breadth and are beginning to show individual differentiation.
+                            <br><br>
+                            Metacarpals: The central portions of the 2nd-5th metacarpals are more constricted.
+                            The proximal ends of the 2nd and 5th metacarpals tend to be more rounded.
+                            The proximal margin (future epiphyseal margin) of the 1st metacarpal is now distinctly flattened<br><br>
+                            Carpals: Ossification centers in the capitate and hamate are now visible.<br><br>
+                            Radius/Ulna: A beak-like projection on the radial side of the distal end of the ulna usually persists for several years.
+                            The flaring of the distal ends of the radius and ulna is slightly more pronounced.<br><br>
+                        </div>
+                        <img src="/reference_images/female/3.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 6 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 6 months</h2><br><br>
+                            Metacarpals: There are now distinct individual differences in the shape and dimensions of the metacarpal shafts.
+                            The bases of the 3rd and 4th metacarpals are now distinctly rounded.<br><br>
+                            Carpals: The hamate surface of the capitate is beginning to flatten. The future long axis of the capitate is now evident.<br><br>
+                        </div>
+                        <img src="/reference_images/female/6.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 9 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 9 months</h2><br><br>
+                            Metacarpals: The base of the 2nd metacarpal has begun to enlarge.<br><br>
+                            Carpals: The capitate is now larger and farther advanced in its development than the hamate.<br><br>
+                        </div>
+                        <img src="/reference_images/female/9.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 12 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 12 months</h2><br><br>
+                            Metacarpals: The capitate articular surface of the 2nd metacarpal has begun to flatten.
+                            The epiphyses of the 2nd and 3rd metacarpals and the epiphyses of the 2nd-4th proximal phalanges now contain small ossification centers.<br><br>
+                            Carpals: The hamate is now somewhat wedge-shaped, its proximal end being narrower than its distal end.<br><br>
+                            Radius/Ulna: A flattened oval ossification center is now present in the distal radial epiphysis.<br><br>
+                        </div>
+                        <img src="/reference_images/female/12.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 15 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 15 months</h2><br><br>
+                            Phalanges: Ossification in the epiphysis of the distal phalanx of the thumb has begun.<br><br>
+                            Metacarpals: Ossification has begun in the epiphysis of the 4th metacarpal.<br><br>
+                        </div>
+                        <img src="/reference_images/female/15.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 18 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 18 months</h2><br><br>
+                            Phalanges: Ossification has begun in the epiphysis of the 5th proximal epiphysis.
+                            The epiphyses of the 2nd-5th proximal phalanges are now disc-shaped and their margins are fairly smooth.<br><br>
+                            Metacarpals: Ossification has begun in the epiphysis of the 5th metacarpal.<br><br>
+                        </div>
+                        <img src="/reference_images/female/18.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 24 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 2 years</h2><br><br>
+                            Phalanges: Ossification has begun in the epiphyses of the 3rd-5th distal phalanges.
+                            The epiphyses of the 2nd-5th proximal phalanges are now more than half as wide as their shafts.
+                            Ossification has begun in the epiphysis of the proximal phalanx of the thumb.<br><br>
+                            Metacarpals: Ossification has begun in the epiphysis of the 1st metacarpal.
+                            The epiphyses of the 2nd-5th metacarpals are now rounded and their margins are smooth.
+                            The proximal margin of the epiphysis of the 2nd metacarpal has flattened slightly as it begins to conform to the shape of the adjacent surface of its shaft.<br><br>
+                            Carpals: The capitate surface of the hamate has flattened and its proximal end is distincly narrower than its distal end. Its triquetral surface has begun to flatten.
+                            Ossification has begun in the triquetrum.<br><br>
+                            Radius/Ulna: The radial epiphysis now has a rounded lateral margin and a rather pointed ulnar tip.<br><br>
+                        </div>
+                        <img src="/reference_images/female/24.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 30 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 2 years 6 months</h2><br><br>
+                            Phalanges: The distal margin of the epiphysis of the distal phalanx of the thumb has flattened to conform to the shape of the adjacent surface of its shaft.
+                            The epiphyses of the 3rd and 4th distal phalanges are now disc-shaped.
+                            The epiphyses of the distal phalanx of the 2nd finger and middle phalanx of the 5th finger have small ossification centers.
+                            The epiphysis of the proximal phalanx of the thumb is disc-shaped and its margins are smooth. It is now more than half as wide as its shaft.<br><br>
+                            Metacarpals: The surface of the base of the 2nd metacarpal, which will later articulate with the trapezoid, has begun to flatten.
+                            The proximal surfaces of the epiphyses of the 3rd-5th metacarpals are now beginning to shape to their respective shafts.<br><br>
+                            Carpals: The triquetral ossification center is rounded and its margins are fairly smooth.<br><br>
+                            Radius/Ulna: The volar and dorsal surfaces of the radial epiphysis can now be distinguished. The volar margin is visible as a rather thick white line. Distally the thin dorsal margin of the epiphysis projects beyond the volar margin.<br><br>
+                        </div>
+                        <img src="/reference_images/female/30.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 36 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 3 years</h2><br><br>
+                            Phalanges: The epiphyses of the 2nd-4th middle phalanges are now slightly more than half as wide as their shafts.<br><br>
+                            Metacarpals: The epiphyses of the 2nd-5th metacarpals have enlarged and their proximal margins are flattened.
+                            The epiphysis of the 1st metacarpal is oval and its long axis is transverse.<br><br>
+                            Carpals: The lunate is much advanced in its development as compared with the other bones. This ossification center is now rounded and its margins are smooth.<br><br>
+                        </div>
+                        <img src="/reference_images/female/36.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 42 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 3 years 6 months</h2><br><br>
+                            Phalanges: The articular surfaces of the epiphyses of the 2nd and 3rd proximal phalanges have become slightly concave as they shape to the heads of the corresponding metacarpals.<br><br>
+                            Metacarpals: The ulnar, distal, and radial margins of the epiphyses of the 2nd and 3rd metacarpals are becoming dissimilar in shape as their joint surfaces begin to differentiate.<br><br>
+                            Carpals: Some reciprocal shaping of the adjacent surfaces of the capitate and hamate is now apparent.<br><br>
+                            Radius/Ulna: The ulnar portion of the distal margin of the radial epiphysis flattens slightly as its lunate articular surface begins to differentiate.<br><br>
+                        </div>
+                        <img src="/reference_images/female/42.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 50 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 4 years 2 months</h2><br><br>
+                            Phalanges: The epiphyses of the 4th and 5th proximal phalanges are becoming slightly concave as they shape to the metacarpal heads.<br><br>
+                            Carpals: The trapezium ossification center is oval and its margins are smooth.
+                            A small indentation may now be visible in the lateral margin of the capitate.
+                            The capitate and radial surfaces of the lunate are rather flat.
+                            Ossification centers are now visible in the scaphoid and trapezoid.<br><br>
+                        </div>
+                        <img src="/reference_images/female/50.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 60 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 5 years</h2><br><br>
+                            Phalanges: The epiphyses of the 3rd-5th distal phalanges are now as wide as their shafts.
+                            The epiphyses of the 2nd-4th middle phalanges are shaping to the contours of the trochlear surfaces of the proximal phalanges.
+                            <br><br>
+                            Metacarpals: The radial, ulnar, and distal margins of the epiphyses of the 4th and 5th metacarpals are becoming dissimilar in shape as their joint surfaces begin to differentiate.
+                            <br><br>
+                            Carpals: The trapezoid ossification center is now rounded and its margins are fairly smooth.
+                            The surface of the trapezium which will later articulate with the 1st metacarpal has begun to flatten.
+                            The scaphoid ossification center is ovoid and its margins are still somewhat irregular.
+                            The dorsal and volar aspects of the capitate surface of the lunate are beginning to be distinguishable.
+                            The hamate surface of the triquetrum has begun to flatten, and its ulnar margin has become less convex.<br><br>
+                            Radius/Ulna: That part of the radial epiphysis from which the styloid process develops is beginning to enlarge.<br><br>
+                        </div>
+                        <img src="/reference_images/female/60.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 69 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 5 years 9 months</h2><br><br>
+                            Phalanges: The epiphysis of the 3rd distal phalanx has shaped further to the contour of the trochlear surface of the middle phalanx.<br><br>
+                            Carpals: The contiguous margins of the capitate and hamate now overlap.<br><br>
+                            Radius/Ulna: The relative enlargement of the lateral half of the radial epiphysis is now distinct.<br><br>
+                        </div>
+                        <img src="/reference_images/female/69.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 82 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 6 years 10 months</h2><br><br>
+                            Phalanges: The epiphysis of the 5th middle phalanx is shaping to the contour of the trochlear surface of the proximal phalanx.<br><br>
+                            Metacarpals: The base of the 2nd metacarpal adjacent to the trapezoid is now slightly concave.br><br>
+                            Carpals: The portion of the proximal margin of the trapezium which will later articulate with the scaphoid is somewhat flattened.
+                            A similar flattening can be seen in the future capitate articular surface of the trapezoid.
+                            The capitate surface of the scaphoid is now slightly concave.
+                            As the triquetrum has elongated, its lunate surface has flattened slightly, and its distal end has become relatively narrower.<br><br>
+                            Radius/Ulna: The styloid process of the radius begins to form. Further modeling of the carpal articular surface of the radius has occurred.
+                            An ossification center is now present in the distal epiphysis of the ulna.<br><br>
+                        </div>
+                        <img src="/reference_images/female/82.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 94 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 7 years 10 months</h2><br>
+                            <span></span>Phalanges: The articular surface of the epiphysis of the distal phalanx of the thumb has flattened somewhat.
+                            The epiphyses of the 2nd-5th distal phalanges are shaping to the trochlear surfaces of the middle phalanges.
+                            The epiphysis of the proximal phalanx of the thumb now extends farther medially than does the corresponding border of its shaft.
+                            The articular surface on the distal ends of the shafts of the 2nd and 3rd proximal phalanges are now slightly concave.<br><br>
+                            Metacarpals: The portion of the base of the 2nd metacarpal which articulates with the trapezoid is now concave, and its capitate articular surface has begun to elongate.<br><br>
+                            Carpals: That portion of the trapezium which will later articulate with the bases of the 1st and 2nd metacarpals now forms a distinct, rounded projection. The middle of its surface which will later articulate with the 1st metacarpal is now concave.
+                            The most medial portion of the trapezium overlaps the lateral margin of the trapezoid.
+                            The scaphoid surface of the trapezoid has flattened.
+                            The outline of the volar margin of the capitate surface of the scaphoid is beginning to be discernible.
+                            The lunate has shaped further the adjacent surfaces of the capitate and radial epiphysis.
+                            The lunate surface of the triquetrum is now distinctly flattened.<br><br>
+                            Radius/Ulna: 
+                            The ulnar epiphysis has increased in size, and its proximal margin has begun to shape to its shaft.<br><br>
+                        </div>
+                        <img src="/reference_images/female/94.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 106 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 8 years 10 months</h2><br><br>
+                            Phalanges: The epiphyses of the 2nd-4th proximal and middle phalanges are now as wide as their shafts.<br><br>
+                            Metacarpals: The proximal surfaces of the epiphyses of the 2nd-5th metacarpals are shaping further to the ends of their shafts.<br><br>
+                            Carpals: The metacarpal articular surfaces of the capitate are beginning to form.
+                            The portion of the hamate which will later articulate with the base of the 5th metacarpal has begun to elongate.
+                            The distal margin of the scaphoid has begun to flatten and its medial portion is elongating toward the capitate.
+                            The scaphoid and radial surfaces of the lunate are beginning to be defined.
+                            The ossification center of the pisiform can be seen volar to the triquetrum.<br><br>
+                            Radius/Ulna: The ulnar epiphysis has now flattened and widened to form a bony plate. Its distal margin si concave and there is a distinct styloid process.<br><br>
+                        </div>
+                        <img src="/reference_images/female/106.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 120 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 10 years</h2><br><br>
+                            Phalanges: The developing trochlear surfaces on the distal ends of the 2nd-4th proximal phalanges now have shallow central indentations.
+                            The epiphyses of the 5th proximal and middle phalanges are now as wide as their shafts.<br><br>
+                            Metacarpals: An indentation has developed in the articular surface of the epiphysis of the 1st metacarpal.<br><br>
+                            Carpals: The distal half of the triquetrum has enlarged and its hamate surface has begun to adjust to the shape of that bone.
+                            The outline of the tip of the hamulus of the hamate is now discernible.
+                            The scaphoid and radial articular surfaces of the lunate are beginning to be defined.<br><br>
+                        </div>
+                        <img src="/reference_images/female/120.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 132 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 11 years</h2><br><br>
+                            Phalanges: The epiphyses of the proximal and middle phalanges of the 2nd-5th fingers and the distal phalanges of the thumb, 2nd, 4th, and 5th fingers now cap their shafts. This capping is more pronounced on the radial tips.<br><br>
+                            Metacarpals: As the epiphysis of the 1st metacarpal enlarges, it conforms more closely to the shape of the adjacent surface of the trapezium and to that of its own shaft.
+                            The epiphyses of the 2nd-5th metacarpals are now as wide as the distal ends of their shafts, to which they conform closely in shape.
+                            The base of the 2nd metacarpal has shaped further to the adjacent surface of the trapezoid.
+                            The adductor pollicis and flexor pollicis brevis sesamoids have begun to ossify. The flexor sesamoid can be seen through the head of the 1st metacarpal, directly opposite the adductor sesamoid.<br><br>
+                            Carpals: The medial half of the trapezium now projects distally toward the base of the 2nd metacarpal, with which it will later articulate.
+                            The hook of the hamulus appears as a triangular outline within the shadow of the hamate.
+                            Further reciprocal shaping has occurred in the adjacent surfaces of the capitate and scaphoid.<br><br>
+                            Radius/Ulna: The proximal margin of the radial epiphysis has adjusted further to the shape of the distal end of its shaft.
+                            The ulnar epiphysis is shaping to the adjacent surface of the radius and to the radial portion of the end of its own shaft.<br><br>
+                        </div>
+                        <img src="/reference_images/female/132.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 144 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 12 years</h2><br><br>
+                            Carpals: The various articular surfaces of the capitate, hamate, trapezoid, and trapezium are now well-defined.
+                            The carpals in the proximal row are only slightly less advanced in their differentiation.
+                            The definitive shape of the joint between the scaphoid, trapezoid, and trapezium is now established.
+                            The surface of the trapezium which articulates with the 1st metacarpal has become more concave.<br><br>
+                            Radius/Ulna: The radial epiphysis caps its shaft and its ulnar articular surface has flattened.
+                            The epiphysis of the ulna has shaped further to the distal end of its shaft, and its styloid process has become more prominent.<br><br>
+                        </div>
+                        <img src="/reference_images/female/144.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 156 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 13 years</h2><br><br>
+                            Phalanges: The epiphysis of the distal phalanx of the thumb has begun to fuse with its shaft.<br><br>
+                            Metacarpals: The epiphysis of the 1st metacarpal now caps its shaft.
+                            The base of the 2nd metacarpal caps the trapezoid.<br><br>
+                            Carpals: The form of all the carpals is now essentially adult.
+                            Accessory sesamoids are usually visible radiographically at this stage.<br><br>
+                        </div>
+                        <img src="/reference_images/female/156.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 162 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 13 years 6 months</h2><br><br>
+                            Phalanges: The epiphyses of all distal phalanges are now fused with their shafts.
+                            Fusion has begun in the 3rd-5th proximal phalanges.
+                            <br><br>
+                            Metacarpals: Epiphyseal-diaphyseal fusion in the 1st metacarpal has begun.<br><br>
+                        </div>
+                        <img src="/reference_images/female/162.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 168 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 14 years</h2><br><br>
+                            Phalanges: Fusion is almost completed in the 2nd middle phalanx, and is well advanced in the 3rd-5th middle phalanges.
+                            Fusion is now almost complete in the 2nd-4th proximal phalanges, and it is completed in the 5th proximal phalanx.<br><br>
+                            Metacarpals: The fusion of the epiphysis of the 1st metacarpal with its shaft is now completed.
+                            Epiphyseal-diaphyseal fusion is well under way in the 2nd-5th metacarpals.<br><br>
+                            Radius/Ulna: The epiphyseal cartilage plates of the radius and ulna are now appreciably reduced in thickness.<br><br>
+                        </div>
+                        <img src="/reference_images/female/168.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 180 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 15 years</h2><br><br>
+                            Phalanges: Fusion is completed first in the distal, next in the proximal, and last in the middle phalanges of the 2nd-5th fingers.<br><br>
+                            Metacarpals: Fusion is completed in the 2nd-5th metacarpals.<br><br>
+                            Radius/Ulna: The radial and ulnar epiphyses have begun to fuse with their shafts. This fusion has progressed farther in the ulna than in the radius.<br><br>
+                        </div>
+                        <img src="/reference_images/female/180.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 192 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 16 years</h2><br><br>
+                            Radius/Ulna: Fusion in the ulna is now almost complete.<br><br>
+                        </div>
+                        <img src="/reference_images/female/192.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 204 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 17 years</h2><br><br>
+                            Phalanges: The epiphyseal lines in the middle phalanges have been almost completely obliterated.<br><br>
+                            Radius/Ulna: Fusion is now complete in the radius and ulna.<br><br>
+                        </div>
+                        <img src="/reference_images/female/204.png" alt="">
+                    </div>
+                    <div class="slideg"> <!-- 216 months-->
+                        <div class ="carousel-item__info">
+                            <h2>Bone Age: 18 years  </h2><br><br>
+                            The hand is indistinguishable from that of a young adult. Traces of some epiphyseal lines of fusion can still be seen and may persist throughout life.
+                        </div>
+                        <img src="/reference_images/female/216.png" alt="">
+                    </div>
+                </div>
+                <!--Buttons for the slider-->
+                <button class="bth bth-next">></button>
+                <button class="bth bth-prev">&lt;</button>
+            
+            </div></div>
+    </div>
+</section>
+<p></p>
+
+<footer>
+    <p></p>
+    <p><a></a></p>
+    </footer>
 
     <!--IMPORT TENSORFLOW.JS-->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.12.0/dist/tf.min.js"></script>
     <!-- IMPORT TFJS-VIS-->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.0.2/dist/tfjs-vis.umd.min.js"></script>
-        
+    <!--SCRIPTS-->
     <script src="/scripts/script.js"></script>
-    <script src="/scripts/upload_script.js"></script>
+    <!--<script src="/scripts/upload_script.js"></script>--><!--NOT USING DRAG AND DROP-->
+
 </body>
 </html>
+
+<!--https://github.com/RisenAgain/Bone-Age-Detection-From-X-Ray/blob/master/Code/inception_v3.py-->
